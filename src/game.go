@@ -12,6 +12,16 @@ type Game struct {
 	input KeyboardInput
 }
 
+func (g *Game) Update() error {
+	if dir := g.input.GetDirection(); dir != None {
+		g.dir = dir
+	}
+	if g.dir != None {
+		g.snake.Update(g.dir, g.food)
+	}
+	return nil
+}
+
 func (g *Game) drawBackground(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{A: 255, R: 21, G: 21, B: 20})
 	for i := 0; i < Cols; i++ {
@@ -34,5 +44,6 @@ func (g *Game) Layout(int, int) (screenWidth int, screenHeight int) {
 func New() *Game {
 	return &Game{
 		snake: NewSnake(),
+		food:  NewFood(),
 	}
 }
