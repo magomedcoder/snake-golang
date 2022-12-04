@@ -21,6 +21,18 @@ func (g *Game) drawBackground(screen *ebiten.Image) {
 	}
 }
 
+func (g *Game) Draw(screen *ebiten.Image) {
+	g.drawBackground(screen)
+	g.snake.Draw(screen)
+	g.food.Draw(screen)
+}
+
+func (g *Game) Layout(int, int) (screenWidth int, screenHeight int) {
+	return Width, Height
+}
+
 func New() *Game {
-	return &Game{}
+	return &Game{
+		snake: NewSnake(),
+	}
 }
